@@ -61,9 +61,6 @@ The EFI folder in this repo includes pre-configured SSDTs and kexts for my speci
 1. Set a proper core number for **TSCAdjustReset.kext**.
 2. Remove (or disable in config.plist) **CPUFriend.kext** and **CPUFriendDataProvider.kext**. These are not needed to install macOS and you'll need to generate them again on your own build, see Post-install notes for more info.
 
-Then, disable or delete **USBMap.kext**, add to your efi [XHCI-unsupported.kext](https://github.com/RehabMan/OS-X-USB-Inject-All/tree/master/XHCI-unsupported.kext), fix your **config.plist** with propertree and enable
-* XhciPortLimit(Under Kernel -> Quirks)
-
 ### 4. Setup Memory whitelist (IMPORTANT)
 This motherboard has a very quirky memory layout, the only way to get consistent boots is to use **DevirtualiseMmio** and a memory whitelist.
 
@@ -74,4 +71,4 @@ Ok, you should now have a working macOS install, however there are still a coupl
 1. To get proper **power management**, regenerate **CPUFriend.kext** and **CPUFriendDataProvider.kext** and add them to your EFI folder, info (here)[https://dortania.github.io/OpenCore-Post-Install/universal/pm.html#using-cpu-friend].
 2. X99 does not support native **NVRAM**, to fix, follow this (guide)[https://dortania.github.io/OpenCore-Post-Install/misc/nvram.html].
 3. If you need **iServices**, see (here)[https://dortania.github.io/OpenCore-Post-Install/universal/iservices.html].
-4. To get proper **sleep and wake**, you'll need to set up your own USB Map. This has to be done manually, the provided **USBMap.kext** maps only front i/o and intel USB Controllers. Follow this (guide)[https://dortania.github.io/OpenCore-Post-Install/usb/manual/manual.html#usb-mapping-the-manual-way].
+4. To get proper **sleep and wake**, you'll need to set up your own USB Map. The EFI provided includes a working **USBMap.kext** and SSDTs definition for all USB controllers on the motherboard. However, if you are using any of the internal 2.0 or 3.0 usb headers, you'll have to regenerate it. This can be done automatically using CorpNewt's [USBMap](https://github.com/corpnewt/USBMap), just remember to delete the included **USBMap.kext** and disable the XHCI port limit in your config.plist before running the tool.
