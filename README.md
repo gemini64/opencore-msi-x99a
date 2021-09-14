@@ -10,10 +10,12 @@ Some info about fixes and specific steps to setup a complete build is presented 
 * _**GPU**_: Radeon RX 580 (Polaris)
 * _**HDD Setup**_: Sata-3 SSDs. NVME is currently untested
 * _**Wi-Fi/Bluetooth**_: None/Untested
-* _**OpenCore Version**_: 0.6.1 (Debug)
+* _**OpenCore Version**_: 0.7.2
 * _**macOS Version**_: Catalina 10.15.7
 
 **Note:** This should work for other MSI X99 Boards but you might need to rewrite the SSDTs used.
+
+**BigSur & Later Support:** Untested, the confing however has been updated and provided you follow instructions on dortania about usb port limit on BigSur you should at least be able to boot and install.
 
 ## Pre-Install Setup steps
 ### 1. Bios config and update
@@ -68,7 +70,7 @@ The config.plist provided has a whitelist configured for my own system and might
 
 ## Post Install
 Ok, you should now have a working macOS install, however there are still a couple of things to fix
-1. To get proper **power management**, regenerate **CPUFriend.kext** and **CPUFriendDataProvider.kext** and add them to your EFI folder, info (here)[https://dortania.github.io/OpenCore-Post-Install/universal/pm.html#using-cpu-friend].
-2. X99 does not support native **NVRAM**, to fix, follow this (guide)[https://dortania.github.io/OpenCore-Post-Install/misc/nvram.html].
-3. If you need **iServices**, see (here)[https://dortania.github.io/OpenCore-Post-Install/universal/iservices.html].
-4. To get proper **sleep and wake**, you'll need to set up your own USB Map. The EFI provided includes a working **USBMap.kext** and SSDTs definition for all USB controllers on the motherboard. However, if you are using any of the internal 2.0 or 3.0 usb headers, you'll have to regenerate it. This can be done automatically using CorpNewt's [USBMap](https://github.com/corpnewt/USBMap), just remember to delete the included **USBMap.kext** and disable the XHCI port limit in your config.plist before running the tool.
+1. To get proper **power management**, regenerate **CPUFriend.kext** and **CPUFriendDataProvider.kext** and add them to your EFI folder, info [here](https://dortania.github.io/OpenCore-Post-Install/universal/pm.html#using-cpu-friend).
+2. X99 does not support native **NVRAM**, to fix, follow this [guide](https://dortania.github.io/OpenCore-Post-Install/misc/nvram.html).
+3. If you need **iServices**, see [here](https://dortania.github.io/OpenCore-Post-Install/universal/iservices.html).
+4. To get proper **sleep and wake**, you'll need to set up your own USB Map. The EFI provided includes a working **USBMap.kext** and SSDTs definition for all USB controllers on the motherboard (however not all ports are mapped, this board has more than 15 usb ports). If you are using any of the internal 2.0 or 3.0 usb headers, you'll have to regenerate it. This can be done automatically using CorpNewt's (USBMap)[https://github.com/corpnewt/USBMap], just remember to delete the included **USBMap.kext** and disable the XHCI port limit in your config.plist before running the tool.
